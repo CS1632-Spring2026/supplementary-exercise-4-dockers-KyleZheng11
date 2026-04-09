@@ -97,10 +97,10 @@ test('TEST-9-GREET-A-CAT', async ({ page }) => {
     await expect(page.getByText('Meow!Meow!Meow!')).toBeVisible();
 });
 
-// test('TEST-10-GREET-A-CAT-WITH-NAME', async ({ page }) => {
-//     await page.goto(baseURL);
-//     await expect(page.getByText('Meow! from Jennyanydots.')).toBeVisible();
-// });
+test('TEST-10-GREET-A-CAT-WITH-NAME', async ({ page }) => {
+    await page.goto(baseURL + "/greet-a-cat/Jennyanydots");
+    await expect(page.getByText('Meow! from Jennyanydots.')).toBeVisible();
+});
 
 test('TEST-11-FEED-A-CAT-SCREENSHOT', async ({ page }) => {
     await page.evaluate(() => {
@@ -112,35 +112,3 @@ test('TEST-11-FEED-A-CAT-SCREENSHOT', async ({ page }) => {
     await page.getByRole('link', { name: 'Feed-A-Cat' }).click();
     await expect(page.locator('body')).toHaveScreenshot();
 });
-
-//  ###DEFECTS###
-
-// // When you feed the cats 0, it returns "nom, nom, nom" but it should return Cat Fight
-// test('DEFECT1-FUN-FEED', async ({ page }) => {
-//     await page.getByRole('link', { name: 'Feed-A-Cat' }).click();
-//     await page.getByRole('textbox', { name: 'Number of catnips to feed:' }).click();
-//     await page.getByRole('textbox', { name: 'Number of catnips to feed:' }).fill('0');
-//     await page.getByRole('button', { name: 'Feed' }).click();
-//     await expect(page.locator('//*[@id="feedResult"]')).toContainText('Cat fight!', { timeout: 10000 });
-// });
-
-// // When you go to the 'greet a cat' page, it always prints out 3 meows and doesn't change even if cats are rented out
-// test('DEFECT2-FUN-GREET-A-CAT', async ({ page }) => {
-//     await page.evaluate(() => {
-//         document.cookie = "2=true";
-//     });
-//     await page.reload();
-//     await page.getByRole('link', { name: 'Greet-A-Cat' }).click();
-//     await expect(page.getByText('Meow!Meow!')).toBeVisible();
-// });
-
-// /**
-//  * When you are on the greet-a-cat page and access another page with /{catname}, the result doesn't change according to a cat's rent status.
-//  */
-// test('DEFECT3-FUN-GREET-A-CAT-WITH-NAME', async ({ page }) => {
-//     await page.evaluate(() => {
-//         document.cookie = "1=true";
-//     });
-//     await page.goto(baseURL);
-//     await expect(page.getByText('Jennyanydots is not here.')).toBeVisible();
-// });
